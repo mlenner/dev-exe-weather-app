@@ -1,0 +1,14 @@
+[Unit]
+Description=Brooklyn Weather App
+After=network.target
+
+[Service]
+Type=simple
+User=exedev
+WorkingDirectory=/home/exedev/weather-app
+ExecStart=/home/exedev/weather-app/weather-srv
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

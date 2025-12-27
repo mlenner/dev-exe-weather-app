@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brooklyn, NY Weather</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="weather-container">
+        <h1>Brooklyn, NY</h1>
+        <p class="subtitle">Current Weather</p>
+
+        {{if .Error}}
+        <div class="error-message">
+          <p>{{.Error}}</p>
+        </div>
+        {{else if .Weather}}
+        <div class="weather-main">
+          <div class="weather-icon">{{.Weather.ConditionEmoji}}</div>
+          <div class="temperature">{{printf "%.0f" .Weather.Temperature}}°F</div>
+          <div class="condition">{{.Weather.Condition}}</div>
+        </div>
+
+        <div class="weather-details">
+          <div class="detail-card">
+            <div class="detail-icon">🌡️</div>
+            <div class="detail-label">Feels Like</div>
+            <div class="detail-value">{{printf "%.0f" .Weather.FeelsLike}}°F</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">💧</div>
+            <div class="detail-label">Humidity</div>
+            <div class="detail-value">{{.Weather.Humidity}}%</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">💨</div>
+            <div class="detail-label">Wind</div>
+            <div class="detail-value">{{printf "%.0f" .Weather.WindSpeed}} mph {{windDir .Weather.WindDirection}}</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">☁️</div>
+            <div class="detail-label">Cloud Cover</div>
+            <div class="detail-value">{{.Weather.CloudCover}}%</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">🌧️</div>
+            <div class="detail-label">Precipitation</div>
+            <div class="detail-value">{{printf "%.2f" .Weather.Precipitation}} in</div>
+          </div>
+        </div>
+
+        <p class="last-updated">Last updated: {{.Weather.LastUpdated}}</p>
+
+        {{if .Hourly}}
+        <section class="hourly-forecast">
+          <h2>Next 24 Hours</h2>
+          <div class="hourly-scroll">
+            {{range .Hourly}}
+            <div class="hour-card">
+              <div class="hour-time">{{.Hour}}</div>
+              <div class="hour-icon">{{.ConditionEmoji}}</div>
+              <div class="hour-temp">{{printf "%.0f" .Temperature}}°</div>
+              {{if gt .PrecipProb 0}}
+              <div class="hour-precip">💧{{.PrecipProb}}%</div>
+              {{end}}
+            </div>
+            {{end}}
+          </div>
+        </section>
+        {{end}}
+        {{end}}
+
+        <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
+      </div>
+
+      <footer>
+        <p>Weather data from <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a></p>
+      </footer>
+    </main>
+  </body>
+</html>
