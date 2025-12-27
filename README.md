@@ -1,3 +1,7 @@
+# EXE.DEV Hello World Project
+
+This was built using the exe.dev Shelly coding agent as part of me playing around with the service for the first time.
+
 # Go Shelley Template
 
 This is a starter template for building Go web applications on exe.dev. It demonstrates end-to-end usage including HTTP handlers, authentication, database integration, and deployment.
